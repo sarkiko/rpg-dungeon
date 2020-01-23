@@ -6,6 +6,7 @@ public class EnemySkeleton {
     int attack;
     int armor;
     int reward;
+    int questItem;
 
     public void info() {
 

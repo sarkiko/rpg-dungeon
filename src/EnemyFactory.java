@@ -21,7 +21,9 @@ public class EnemyFactory {
         enemy.attack = 2;
         enemy.armor = 0;
         enemy.reward = 4;
+        enemy.questItem =0;
         return enemy;
+
     }
 
     public EnemySkeleton createBossSkeleton() {

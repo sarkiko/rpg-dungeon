@@ -12,8 +12,19 @@ public class Hero {
     int armorPotion = 0;
     int bomb = 4;
 
+    //Quests
+    int quest1 =0;
+    int quest2 = 0;
+    Quest activeQuest;
+
 
     int money = 212;
+
+    public  void hpCheck() {
+        if (currentHP > manHP) {
+            currentHP = manHP;
+        }
+    }
 
     public void info() {
         System.out.println("  Gold = "+money+"       HP "+currentHP+"/"+manHP);

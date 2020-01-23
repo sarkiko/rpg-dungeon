@@ -1,6 +1,10 @@
 import java.util.Scanner;
 
 public class App {
+    static Hero hero = new Hero();
+    static Tavern tavern = new Tavern();
+    static Dungeon1 dungeon = new Dungeon1();
+
     public static void main(String[] args) {
 
         System.out.println("              DUNGEON");
@@ -22,37 +26,35 @@ public class App {
                         "▓▓───▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓\n" +
                         "▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓\n");
 
-        Hero hero = new Hero();
-
-        Dungeon1 dungeon = new Dungeon1();
+        Quests quest = new Quests();
         dungeon.createDungeon(hero);
         characterCreaton(hero);
         mainMenu(hero);
         System.out.println(" \n \n \n ");
 
 
-
-        infinity(hero,dungeon);
+        infinity(hero, dungeon, quest);
 
     }
 
-    public static void town(Hero hero,Dungeon1 dungeon) {
-
+    public static void town() {
+        System.out.println();
+        System.out.println();
         System.out.println(" ==== VILLAGE ====");
-        System.out.println(" ");
+        System.out.println();
         System.out.println("1. Shop\n2. Blacksmith\n3. Tavern");
         System.out.println(" \n ");
         System.out.println("4. Inventory");
-        System.out.println(" ");
+        System.out.println();
         System.out.println("5. Leave village");
         Scanner in = new Scanner(System.in);
         int vibor = in.nextInt();
         if (vibor == 1) {
-            shop(hero,dungeon);
+            shop();
         } else if (vibor == 2) {
-           blacksmith(hero,dungeon);
+            blacksmith();
         } else if (vibor == 3) {
-            tavern(hero,dungeon);
+            tavern.enterTavern(hero);
         } else if (vibor == 4) {
             hero.info();
         } else if (vibor == 5) {
@@ -64,7 +66,7 @@ public class App {
 
     }
 
-    public static void shop(Hero hero,Dungeon1 dungeon) {
+    public static void shop() {
         System.out.println(" ==== SHOPE ====");
         System.out.println(" ");
         System.out.println("1. Healing potion =  7 gold\n2. Black bomb     = 12 gold\n3. Armor potion   = 11 gold\n4. Attack potion  = 15 gold");
@@ -73,18 +75,18 @@ public class App {
         Scanner in = new Scanner(System.in);
         int a = in.nextInt();
         if (a == 1) {
-            buy(hero, 1);
+            buy(1);
         } else if (a == 2) {
-            buy(hero, 2);
+            buy(2);
         } else if (a == 3) {
-            buy(hero, 3);
+            buy(3);
         } else if (a == 4) {
-            buy(hero, 4);
-        } else town(hero,dungeon);
+            buy(4);
+        } else town();
 
     }
 
-    public static void buy(Hero hero, int i) {
+    public static void buy(int i) {
         int prise;
         if (i == 1) {
             prise = 7;
@@ -132,33 +134,10 @@ public class App {
             } else {
                 System.out.println("Not enough gold ");
             }
-        } else if (i == 5) {
-            prise = 6;
-            if ((hero.money - prise) >= 0) {
-                hero.money = (hero.money - prise);
-                hero.currentHP = (hero.currentHP + 25);
-                hpCheck(hero);
-                System.out.println("You rested\nYour HP " + hero.currentHP + "/" + hero.manHP);
-            } else {
-                System.out.println("Not enough gold ");
-            }
-        }
 
-            else if (i == 6) {
-                prise = 10;
-                if ((hero.money - prise) >= 0) {
-                    hero.money = (hero.money - prise);
-                    hero.manHP = (hero.manHP + 8);
-                    hero.currentHP = (hero.currentHP + 8);
-                    System.out.println("You have dinner\nYour max HP increased " + hero.currentHP + "/" + hero.manHP);
 
-                } else {
-                    System.out.println("Not enough gold ");
-                }
-
-            }
-        else if (i == 7) {
-            prise = (10*hero.attack)/2+4;
+        } else if (i == 7) {
+            prise = (10 * hero.attack) / 2 + 4;
             if ((hero.money - prise) >= 0) {
                 hero.money = (hero.money - prise);
                 hero.attack = (hero.attack + 1);
@@ -168,9 +147,8 @@ public class App {
                 System.out.println("Not enough gold ");
             }
 
-        }
-        else if (i == 8) {
-            prise = (9*hero.armor)/2+3;
+        } else if (i == 8) {
+            prise = (9 * hero.armor) / 2 + 3;
             if ((hero.money - prise) >= 0) {
                 hero.money = (hero.money - prise);
                 hero.armor = (hero.armor + 1);
@@ -181,52 +159,29 @@ public class App {
             }
 
         }
-        }
-
-
-    public static void tavern(Hero hero,Dungeon1 dungeon) {
-        System.out.println(" ==== TAVERN ====");
-        System.out.println(" ");
-        System.out.println("1. Rest            =  6 gold\n2. Have dinner     = 10 gold");
-        System.out.println(" \nYour gold: " + hero.money);
-        System.out.println("3. Back");
-        System.out.println("HP "+hero.currentHP +"/"+ hero.manHP);
-        Scanner in = new Scanner(System.in);
-        int a = in.nextInt();
-        if (a == 1) {
-            buy(hero, 5);
-        } else if (a == 2) {
-            buy(hero, 6);
-        }
-        town(hero, dungeon);
     }
 
-    private static void hpCheck(Hero hero) {
-        if (hero.currentHP > hero.manHP) {
-            hero.currentHP = (hero.manHP);
-        }
 
-    }
-
-    public static void blacksmith(Hero hero,Dungeon1 dungeon){
+    public static void blacksmith() {
         System.out.println(" ==== BLACKSMITH ====");
         System.out.println(" ");
-        System.out.println("1. Upgrade weapon         = "+((10*hero.attack)/2+4)+" gold");
-        System.out.println("2. Upgrade armor          = "+((9*hero.armor)/2+4)+" gold");
+        System.out.println("1. Upgrade weapon         = " + ((10 * hero.attack) / 2 + 4) + " gold");
+        System.out.println("2. Upgrade armor          = " + ((9 * hero.armor) / 2 + 4) + " gold");
         System.out.println(" \nYour gold: " + hero.money);
-        System.out.println("Attack =  "+hero.attack);
-        System.out.println("Armor  =  "+hero.armor);
+        System.out.println("Attack =  " + hero.attack);
+        System.out.println("Armor  =  " + hero.armor);
         System.out.println("3. Back");
 
         Scanner in = new Scanner(System.in);
         int a = in.nextInt();
         if (a == 1) {
-            buy(hero, 7);
+            buy( 7);
         } else if (a == 2) {
-            buy(hero, 8);
+            buy(8);
         }
-        town(hero, dungeon);
+        town();
     }
+
     public static void characterCreaton(Hero hero) {
         Scanner in = new Scanner(System.in);
         System.out.println("Enter your name: ");
@@ -244,9 +199,9 @@ public class App {
 
     }
 
-    public static void infinity(Hero hero,Dungeon1 dungeon) {
+    public static void infinity(Hero hero, Dungeon1 dungeon, Quests quest) {
         while (true) {
-            town(hero, dungeon);
+            town();
         }
 
     }

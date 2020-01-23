@@ -12,6 +12,7 @@ public class Dungeon1 {
         hero = a;
     }
 
+
     public void enterDungeon() {
         position();
         System.out.println("[    ]--[ ☠ ]--[ ☠ ]--[ ✉ ]--[BOSS]--[EXIT]");
@@ -26,7 +27,7 @@ public class Dungeon1 {
         } else {
             clearRooms = 0;
             enemy.currentHp = (enemy.maxHp);
-            App.town(hero, this);
+            App.town();
         }
     }
 
@@ -63,21 +64,11 @@ public class Dungeon1 {
     public void encounter() {
         if (clearRooms == 1) {
             System.out.println("Enemy ahead");
-            if (enemy.currentHp > 0) {
-                enemy.info();
-                battle();
-            } else {
-                enterDungeon();
-            }
+            checkBeforeBattle();
         } else if (clearRooms == 2) {
             System.out.println("Enemy ahead");
             enemy.currentHp = enemy.maxHp;
-            if (enemy.currentHp > 0) {
-                enemy.info();
-                battle();
-            } else {
-                enterDungeon();
-            }
+            checkBeforeBattle();
         } else if (clearRooms == 3) {
             System.out.println("You find chest");
             hero.money = (hero.money + 13);
@@ -88,19 +79,22 @@ public class Dungeon1 {
         } else if (clearRooms == 4) {
             System.out.println("dangerous enemy ahead");
             enemy.currentHp = enemy.maxHp;
-            if (enemy.currentHp > 0) {
-                enemy.info();
-                battle();
-            } else {
-                enterDungeon();
-            }
+            checkBeforeBattle();
         } else {
             System.out.println("====CONGRATULATIONS====");
             System.out.println("== dungeon  complete ==");
-            App.town(hero, this);
+            App.town();
         }
 
 
+    }
+    public void checkBeforeBattle(){
+        if (enemy.currentHp > 0) {
+            enemy.info();
+            battle();
+        } else {
+            enterDungeon();
+        }
     }
 
 
@@ -118,7 +112,7 @@ public class Dungeon1 {
             System.out.println("You escape from dungeon");
             clearRooms = 0;
             enemy.currentHp = (enemy.maxHp);
-            App.town(hero, this);
+            App.town();
         }
 
     }
@@ -187,6 +181,7 @@ public class Dungeon1 {
         if (enemy.currentHp <= 0) {
             System.out.println("Enemy defeated");
             hero.money = (hero.money + enemy.reward);
+            hero.quest1=(hero.quest1+enemy.questItem);
             System.out.println("You earned " + enemy.reward + " gold");
             enterDungeon();
         } else {
@@ -200,7 +195,7 @@ public class Dungeon1 {
             if (hero.currentHP <= 0) {
                 System.out.println("YOU DEFEATED");
                 hero.currentHP = 20;
-                App.town(hero, this);
+                App.town();
             } else {
                 enemy.info();
 
