@@ -12,7 +12,10 @@ public class Dungeon1 {
         hero = a;
     }
 
-
+//TODO
+    //1.після того якти вбиваеш моба, зробити проверку чи був актівний квест activeQuest!=null
+    //2.якшо квест актівний зробити перверівку чи переменна класа КВЕСТ isCompleted == false
+    //3.якшо isCompleted == false, то визвати метод addProgress
     public void enterDungeon() {
         position();
         System.out.println("[    ]--[ ☠ ]--[ ☠ ]--[ ✉ ]--[BOSS]--[EXIT]");

@@ -13,21 +13,28 @@ public class Hero {
     int bomb = 4;
 
     //Quests
-    int quest1 =0;
+    int quest1 = 0;
     int quest2 = 0;
     Quest activeQuest;
 
 
     int money = 212;
 
-    public  void hpCheck() {
+    public void hpCheck() {
         if (currentHP > manHP) {
             currentHP = manHP;
         }
     }
 
     public void info() {
-        System.out.println("  Gold = "+money+"       HP "+currentHP+"/"+manHP);
-        System.out.println("Healing potion = " + potions+"   Attack potions = "+attackPotion+"   Armor potion = "+armorPotion+"   Bombs = "+bomb);
+        System.out.println("  Gold = " + money + "       HP " + currentHP + "/" + manHP);
+        System.out.println("Healing potion = " + potions + "   Attack potions = " + attackPotion + "   Armor potion = " + armorPotion + "   Bombs = " + bomb);
+    }
+
+    public void heroInfo() {
+        System.out.println(name);
+        System.out.println("HP " + currentHP + " / " + manHP);
+        System.out.println("Attack " + attack);
+        System.out.println("Money: " + money);
     }
 }

@@ -4,9 +4,9 @@ public class App {
     static Hero hero = new Hero();
     static Tavern tavern = new Tavern();
     static Dungeon1 dungeon = new Dungeon1();
+    static Shopping shopping = new Shopping();
 
     public static void main(String[] args) {
-
         System.out.println("              DUNGEON");
         System.out.println(" ");
         System.out.println(
@@ -28,13 +28,11 @@ public class App {
 
         Quests quest = new Quests();
         dungeon.createDungeon(hero);
-        characterCreaton(hero);
-        mainMenu(hero);
+        characterCreator(hero);
+        hero.heroInfo();
         System.out.println(" \n \n \n ");
 
-
-        infinity(hero, dungeon, quest);
-
+        infinity();
     }
 
     public static void town() {
@@ -50,9 +48,9 @@ public class App {
         Scanner in = new Scanner(System.in);
         int vibor = in.nextInt();
         if (vibor == 1) {
-            shop();
+            shopping.shop(hero);
         } else if (vibor == 2) {
-            blacksmith();
+            shopping.blacksmith(hero);
         } else if (vibor == 3) {
             tavern.enterTavern(hero);
         } else if (vibor == 4) {
@@ -60,147 +58,22 @@ public class App {
         } else if (vibor == 5) {
             System.out.println("===You enter the darkness===");
             dungeon.enterDungeon();
-//            dungeonChoose();
-        }
-
-
-    }
-
-    public static void shop() {
-        System.out.println(" ==== SHOPE ====");
-        System.out.println(" ");
-        System.out.println("1. Healing potion =  7 gold\n2. Black bomb     = 12 gold\n3. Armor potion   = 11 gold\n4. Attack potion  = 15 gold");
-        System.out.println(" \nYour gold: " + hero.money);
-        System.out.println("5. Back");
-        Scanner in = new Scanner(System.in);
-        int a = in.nextInt();
-        if (a == 1) {
-            buy(1);
-        } else if (a == 2) {
-            buy(2);
-        } else if (a == 3) {
-            buy(3);
-        } else if (a == 4) {
-            buy(4);
-        } else town();
-
-    }
-
-    public static void buy(int i) {
-        int prise;
-        if (i == 1) {
-            prise = 7;
-            if ((hero.money - prise) >= 0) {
-                hero.money = (hero.money - prise);
-                hero.potions = (hero.potions + 1);
-                System.out.println("You buy 1 healing potion\nCurrent Healing Potion:" + hero.potions);
-
-            } else {
-                System.out.println("Not enough gold ");
-
-
-            }
-
-
-        } else if (i == 2) {
-            prise = 12;
-            if ((hero.money - prise) >= 0) {
-                hero.money = (hero.money - prise);
-                hero.bomb = (hero.bomb + 1);
-                System.out.println("You buy 1 Black bomb\nCurrent Bombs:" + hero.bomb);
-
-            } else {
-                System.out.println("Not enough gold ");
-
-            }
-
-        } else if (i == 3) {
-            prise = 11;
-            if ((hero.money - prise) >= 0) {
-                hero.money = (hero.money - prise);
-                hero.attackPotion = (hero.attackPotion + 1);
-                System.out.println("You buy 1 Attack potion\nCurrent Attack potion:" + hero.attackPotion);
-
-            } else {
-                System.out.println("Not enough gold ");
-            }
-        } else if (i == 4) {
-            prise = 15;
-            if ((hero.money - prise) >= 0) {
-                hero.money = (hero.money - prise);
-                hero.armorPotion = (hero.armorPotion + 1);
-                System.out.println("You buy 1 Armor potion\nCurrent Armor potion:" + hero.armorPotion);
-
-            } else {
-                System.out.println("Not enough gold ");
-            }
-
-
-        } else if (i == 7) {
-            prise = (10 * hero.attack) / 2 + 4;
-            if ((hero.money - prise) >= 0) {
-                hero.money = (hero.money - prise);
-                hero.attack = (hero.attack + 1);
-                System.out.println("blacksmith sharpened your weapons");
-
-            } else {
-                System.out.println("Not enough gold ");
-            }
-
-        } else if (i == 8) {
-            prise = (9 * hero.armor) / 2 + 3;
-            if ((hero.money - prise) >= 0) {
-                hero.money = (hero.money - prise);
-                hero.armor = (hero.armor + 1);
-                System.out.println("blacksmith sharpened your armor");
-
-            } else {
-                System.out.println("Not enough gold ");
-            }
-
         }
     }
 
-
-    public static void blacksmith() {
-        System.out.println(" ==== BLACKSMITH ====");
-        System.out.println(" ");
-        System.out.println("1. Upgrade weapon         = " + ((10 * hero.attack) / 2 + 4) + " gold");
-        System.out.println("2. Upgrade armor          = " + ((9 * hero.armor) / 2 + 4) + " gold");
-        System.out.println(" \nYour gold: " + hero.money);
-        System.out.println("Attack =  " + hero.attack);
-        System.out.println("Armor  =  " + hero.armor);
-        System.out.println("3. Back");
-
-        Scanner in = new Scanner(System.in);
-        int a = in.nextInt();
-        if (a == 1) {
-            buy( 7);
-        } else if (a == 2) {
-            buy(8);
-        }
-        town();
-    }
-
-    public static void characterCreaton(Hero hero) {
+    public static void characterCreator(Hero hero) {
         Scanner in = new Scanner(System.in);
         System.out.println("Enter your name: ");
         String name = in.nextLine();
-
         hero.name = name;
-
     }
 
-    public static void mainMenu(Hero hero) {
-        System.out.println(hero.name);
-        System.out.println("HP " + hero.currentHP + " / " + hero.manHP);
-        System.out.println("Attack " + hero.attack);
-        System.out.println("Money: " + hero.money);
-
-    }
-
-    public static void infinity(Hero hero, Dungeon1 dungeon, Quests quest) {
+    public static void infinity() {
         while (true) {
+            Scanner in = new Scanner(System.in);
+            System.out.println();
+            System.out.println("Press any key to continue...");
+            in.nextLine();
             town();
         }
 

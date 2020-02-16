@@ -15,14 +15,17 @@ public class QuestFactory {
     }
 
     public Quest createQuest1() {
+        QuestStatistic questStatistic= new QuestStatistic();
+        questStatistic.complete = 5;
         Quest quest = new Quest();
+        quest.statistic = questStatistic;
         quest.name = "Убийство скелетов\n ";
         quest.description = "В последнее вермя участились вылазки скелетов, у нас все больше пострадавших. \n" +
-                "Нужно что бы  ты немого уменьшил их популяцыю, 5 штук будет достаточно, в качестве доказательств принеси их черепа";
+                "Нужно что бы  ты немого уменьшил их популяцыю, "+quest.statistic.complete+" штук будет достаточно, в качестве доказательств принеси их черепа";
         quest.reward = 200;
         return quest;
     }
-
+//TODO зробити таким як верхный квест
     public Quest createQuest2() {
         Quest quest = new Quest();
         quest.name = "Сбор грибов\n ";
