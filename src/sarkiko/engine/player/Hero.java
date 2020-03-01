@@ -1,24 +1,28 @@
+package sarkiko.engine.player;
+
+
+import sarkiko.engine.quest.Quest;
+
 public class Hero {
-    String name;
-    int manHP = 80;
-    int currentHP = 40;
-    int potionPower = 30;
-    int armor = 1;
-    int attack = 3;
+    public String name;
+    public int manHP = 80;
+    public int currentHP = 40;
+    public int potionPower = 30;
+    public int armor = 1;
+    public int attack = 23;
 
     //inventory
-    int attackPotion = 0;
-    int potions = 0;
-    int armorPotion = 0;
-    int bomb = 4;
-
-    //Quests
-    int quest1 = 0;
-    int quest2 = 0;
-    Quest activeQuest;
+    //TODO винести в отдельний класс
+    public int attackPotion = 0;
+    public int potions = 0;
+    public int armorPotion = 0;
+    public int bomb = 4;
 
 
-    int money = 212;
+    public Quest activeQuest;
+
+
+    public int money = 212;
 
     public void hpCheck() {
         if (currentHP > manHP) {

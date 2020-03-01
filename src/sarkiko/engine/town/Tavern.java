@@ -1,13 +1,25 @@
+package sarkiko.engine.town;
+
+import sarkiko.App;
+import sarkiko.engine.factory.QuestFactory;
+import sarkiko.engine.player.Hero;
+import sarkiko.engine.quest.Quest;
+
 import java.util.Scanner;
 
 public class Tavern {
-    Hero hero;
+    public Hero hero;
+    public QuestFactory questGenerator = new QuestFactory();
+
+    public Tavern(Hero hero) {
+        this.hero = hero;
+    }
 
 
-    QuestFactory questGenerator = new QuestFactory();
 
-    public void enterTavern(Hero hero1) {
-        hero = hero1;
+
+    public void enterTavern() {
+
 
         System.out.println(" ==== TAVERN ====");
         System.out.println(" ");
@@ -32,7 +44,7 @@ public class Tavern {
         System.out.println("1. Убийство скелетов");
         System.out.println("2. Найти предателя среди грибов\n ");
         System.out.println("3. Back");
-       // questCheck1();
+        // questCheck1();
         Scanner in = new Scanner(System.in);
         int a = in.nextInt();
         Quest quest = null;
@@ -48,13 +60,6 @@ public class Tavern {
         }
     }
 
-    public void questCheck1() {
-        if (hero.quest1 >= 7) {
-            System.out.println("1. Убийство скелетов [COMPLETE]");
-        } else {
-            System.out.println("1. Убийство скелетов");
-        }
-    }
 
 
     public void buy(int i) {

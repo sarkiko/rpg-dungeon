@@ -1,3 +1,7 @@
+package sarkiko.engine.factory;
+
+import sarkiko.engine.mob.EnemySkeleton;
+
 public class EnemyFactory {
     //з залежності від цифри А, буде вертати опредільонного врага
     public EnemySkeleton createEnemy(int a) {

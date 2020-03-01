@@ -1,21 +1,28 @@
+package sarkiko.engine.dungeon;
+
+import sarkiko.App;
+import sarkiko.engine.factory.EnemyFactory;
+import sarkiko.engine.mob.EnemySkeleton;
+import sarkiko.engine.player.Hero;
+
+
 import java.util.Scanner;
 
 public class Dungeon1 {
-    int rooms = 5; // TODO потом зробити з ним шось
-    int clearRooms = 0;
-    EnemySkeleton enemy;
-    Hero hero;
-    EnemyFactory factory = new EnemyFactory();
 
-    //цей метод сохранає інфо про класс НЕРО внутрі другого класу (цього)
-    public void createDungeon(Hero a) {
-        hero = a;
+    public Hero hero;
+
+
+    public int clearRooms = 0;
+    public EnemySkeleton enemy;
+    public EnemyFactory factory = new EnemyFactory();
+
+
+    public Dungeon1(Hero hero) {
+        this.hero = hero;
     }
 
-//TODO
-    //1.після того якти вбиваеш моба, зробити проверку чи був актівний квест activeQuest!=null
-    //2.якшо квест актівний зробити перверівку чи переменна класа КВЕСТ isCompleted == false
-    //3.якшо isCompleted == false, то визвати метод addProgress
+//TODO while
     public void enterDungeon() {
         position();
         System.out.println("[    ]--[ ☠ ]--[ ☠ ]--[ ✉ ]--[BOSS]--[EXIT]");
@@ -91,13 +98,29 @@ public class Dungeon1 {
 
 
     }
-    public void checkBeforeBattle(){
+
+    public void checkBeforeBattle() {
         if (enemy.currentHp > 0) {
             enemy.info();
             battle();
         } else {
             enterDungeon();
         }
+    }
+
+    public void questCheck() {
+        if (hero.activeQuest != null && hero.activeQuest.isCompleted == false) {
+            if(hero.activeQuest.questID==1){
+                hero.activeQuest.addProgress();
+            }else if(hero.activeQuest.questID==2 && clearRooms==2){
+                System.out.println("Вы нашли то что вас просили, что бы это ни было");
+                hero.activeQuest.addProgress();
+
+            }
+
+
+        }
+        enterDungeon();
     }
 
 
@@ -118,6 +141,20 @@ public class Dungeon1 {
             App.town();
         }
 
+    }
+
+    public void enemyHpCheck() {
+        if (enemy.currentHp >= 0) {
+
+            enemy.info();
+            battle();
+        } else {
+            System.out.println("Enemy defeated");
+            hero.money = (hero.money + enemy.reward);
+            System.out.println("You earned " + enemy.reward + " gold");
+            questCheck();
+            enterDungeon();
+        }
     }
 
     public void useItems() {
@@ -150,15 +187,7 @@ public class Dungeon1 {
                 System.out.println("You throw bomb and deal 13 DMG");
                 enemy.currentHp = (enemy.currentHp - 13);
 
-                if (enemy.currentHp >= 0) {
-                    enemy.info();
-                    battle();
-                } else {
-                    System.out.println("Enemy defeated");
-                    hero.money = (hero.money + enemy.reward);
-                    System.out.println("You earned " + enemy.reward + " gold");
-                    enterDungeon();
-                }
+                enemyHpCheck();
             }
         } else {
             battle();
@@ -178,15 +207,15 @@ public class Dungeon1 {
         if (enemy.armor >= hero.attack) {
             enemy.currentHp = (enemy.currentHp - 1);
         } else {
-            enemy.currentHp = (enemy.currentHp - hero.attack);
+            enemy.currentHp = (enemy.currentHp - hero.attack + enemy.armor);
         }
-        enemy.currentHp = (enemy.currentHp - hero.attack);
         if (enemy.currentHp <= 0) {
             System.out.println("Enemy defeated");
             hero.money = (hero.money + enemy.reward);
-            hero.quest1=(hero.quest1+enemy.questItem);
+
             System.out.println("You earned " + enemy.reward + " gold");
-            enterDungeon();
+            questCheck();
+
         } else {
             System.out.println(enemy.name + " hit you for " + attack + " damage");
             System.out.println(" ");

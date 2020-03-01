@@ -1,10 +1,17 @@
+package sarkiko;
+
+import sarkiko.engine.dungeon.Dungeon1;
+import sarkiko.engine.player.Hero;
+import sarkiko.engine.town.Shopping;
+import sarkiko.engine.town.Tavern;
+
 import java.util.Scanner;
 
 public class App {
     static Hero hero = new Hero();
-    static Tavern tavern = new Tavern();
-    static Dungeon1 dungeon = new Dungeon1();
-    static Shopping shopping = new Shopping();
+    static Tavern tavern = new Tavern(hero);
+    static Dungeon1 dungeon = new Dungeon1(hero);
+    static Shopping shopping = new Shopping(hero);
 
     public static void main(String[] args) {
         System.out.println("              DUNGEON");
@@ -26,8 +33,7 @@ public class App {
                         "▓▓───▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓\n" +
                         "▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓\n");
 
-        Quests quest = new Quests();
-        dungeon.createDungeon(hero);
+
         characterCreator(hero);
         hero.heroInfo();
         System.out.println(" \n \n \n ");
@@ -52,7 +58,7 @@ public class App {
         } else if (vibor == 2) {
             shopping.blacksmith(hero);
         } else if (vibor == 3) {
-            tavern.enterTavern(hero);
+            tavern.enterTavern();
         } else if (vibor == 4) {
             hero.info();
         } else if (vibor == 5) {

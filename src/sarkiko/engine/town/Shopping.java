@@ -1,7 +1,17 @@
+package sarkiko.engine.town;
+
+import sarkiko.App;
+import sarkiko.engine.player.Hero;
+
 import java.util.Scanner;
 
 public class Shopping {
-    Hero hero;
+    public Hero hero;
+
+
+    public Shopping(Hero hero){
+        this.hero=hero;
+    }
 
 
     public  void shop(Hero hero) {

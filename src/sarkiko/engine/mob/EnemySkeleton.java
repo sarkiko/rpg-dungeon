@@ -1,12 +1,14 @@
+package sarkiko.engine.mob;
+
 public class EnemySkeleton {
 
-    String name;
-    int maxHp;
-    int currentHp;
-    int attack;
-    int armor;
-    int reward;
-    int questItem;
+    public String name;
+    public  int maxHp;
+    public  int currentHp;
+    public  int attack;
+    public  int armor;
+    public  int reward;
+    public int questItem;
 
     public void info() {
 
